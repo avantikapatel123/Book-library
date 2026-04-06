@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    background-color: black;
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* 🔥 COMPLETE CARD SECTION - YE COPY PASTE KARO */
+.card {
+    position: relative;
+    height: 420px;           /* 🔥 Fixed height */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;  /* 🔥 SLOW + SMOOTH */
+    cursor: pointer;
+    background: white;
+}
+
+.card:hover {
+    transform: translateY(-20px) scale(1.03) !important;  /* 🔥 Upar jao */
+    box-shadow: 0 35px 70px rgba(0,0,0,0.25) !important;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;  /* 🔥 Image slow zoom */
+}
+
+.card:hover img {
+    transform: scale(1.08) !important;  /* 🔥 Gentle zoom */
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent 0%, rgba(0,0,0,0.98) 40%) !important;
+    color: white;
+    padding: 30px 25px 25px !important;
+    transform: translateY(110%) !important;  /* 🔥 Completely hidden */
+    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;  /* 🔥 SLOW slide up */
+    height: 65%;  /* 🔥 Fixed height overlay */
+}
+
+.card:hover .overlay {
+    transform: translateY(0%) !important;  /* 🔥 Perfect slide up */
+}
+
+.overlay h3 {
+    font-size: 1.35rem !important;
+    margin-bottom: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;  /* 🔥 Title 2 lines max */
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.overlay p {
+    font-size: 0.92rem !important;
+    margin-bottom: 20px !important;
+    line-height: 1.45 !important;
+    max-height: 85px !important;  /* 🔥 Fixed space */
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4 !important;  /* 🔥 Description 4 lines */
+    -webkit-box-orient: vertical !important;
+    opacity: 0.97 !important;
+}
+
+.btn-group {
+    display: flex;
+    gap: 12px !important;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 20px !important;
+    border: none !important;
+    border-radius: 25px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(255,107,107,0.4) !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #ff5252, #ff6b6b) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(255,107,107,0.6) !important;
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.25) !important;
+    color: white !important;
+    backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: rgba(255,255,255,0.35) !important;
+    transform: translateY(-3px) !important;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.controls {
+    text-align: center;
+}
+
+.btn-primary.controls {
+    padding: 15px 30px !important;
+    font-size: 1.1rem !important;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255,255,255,0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+    margin-bottom: 25px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 🔥 Mobile Responsive */
+@media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .overlay {
+        padding: 25px 20px 20px !important;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 8px !important;
+    }
+}
