@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify
 import requests
 import random
+import os   # 🔥 ye add kiya
 
 app = Flask(__name__)
 
@@ -14,7 +15,6 @@ def index():
 @app.route('/books')
 def get_books():
     try:
-        # 🔥 Search different categories randomly
         queries = [
             "fiction", "programming", "python", "history", 
             "science", "adventure", "mystery", "romance"
@@ -31,14 +31,13 @@ def get_books():
         books_data = response.json().get('docs', [])
         
         result = []
-        for book in books_data[:8]:  # Top 8 books
+        for book in books_data[:8]:
             cover_id = book.get("cover_i")
             cover_url = f"https://covers.openlibrary.org/b/id/{cover_id}-M.jpg" if cover_id else "https://via.placeholder.com/200x300/ff6b6b/ffffff?text=No+Image"
 
             work_key = book.get("key")
             description = "No description available"
             
-            # 🔥 Description fetch karo
             try:
                 if work_key:
                     work_url = f"https://openlibrary.org{work_key}.json"
@@ -49,7 +48,7 @@ def get_books():
                         if isinstance(desc, dict):
                             description = desc.get("value", "No description available")
                         elif isinstance(desc, str) and desc.strip():
-                            description = desc[:200] + "..."  # Short description
+                            description = desc[:200] + "..."
             except:
                 pass
 
@@ -66,5 +65,6 @@ def get_books():
     except Exception as e:
         return jsonify([])
 
+# 🔥🔥 IMPORTANT CHANGE HERE
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
